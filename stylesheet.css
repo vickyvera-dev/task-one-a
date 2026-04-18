@@ -1,0 +1,311 @@
+body {
+  font-family: Arial,  sans-serif;
+  background: #f4f6f8;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.todo-card {
+   width: 100%;
+  max-width: 450px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+article:hover {
+  transform: translateY(-4px);
+}
+ 
+.done {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #222;
+}
+
+h3.done {
+  text-decoration: line-through;
+  color: #222;
+}
+
+
+/*Priority*/
+[data-testid="test-todo-priority"] {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  background: #ffeaea;
+  color: #ff4d4f;
+  font-weight: 600;
+}
+
+/*Description*/
+#desc-container {
+  color: #666;
+  font-size: 14px;
+  margin: 8px 0 12px;
+}
+
+/*Time*/
+.due {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+#due-date {
+  font-size: 13px;
+  color: #888;
+}
+#time-remaining {
+  font-size: 13px;
+  color: #1677ff;
+  margin-top: 5px;
+}
+
+/*Status*/
+#status-control {
+  font-weight: bold;
+  color: #faad14;
+}
+
+/*Tags*/
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0;
+  list-style: none;
+}
+
+.urgent {
+ background: #eef6ff;
+  color: #16ff7f;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-right: 5px;
+  font-size: 12px; 
+}
+
+.tag {
+  background: #eef6ff;
+  color: #1677ff;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-right: 5px;
+  font-size: 12px;
+}
+
+/*checkbox*/
+label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+input[type="checked"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 2px solid #ccc;
+  transform: scale(1.2);
+  cursor: pointer;
+  accent-color: #1677ff;
+  position: relative;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #1677ff;
+  border-color: #1677ff;
+}
+
+input[type="checkbox"]:checked::after {
+content: "";
+color: white;
+font-size: 12px;
+position: absolute;
+top: -2px;
+left: 3px;
+}
+
+button {
+  margin-top: 10px;
+  border: none;
+  padding: 8px 12px;
+  margin-right: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.2s;
+}
+
+/*Edit*/
+button[data-testid="test-todo-edit-button"] {
+  background: #e6f4ff;
+  color: #1677ff;
+}
+
+button[data-testid="test-todo-edit-button"]:hover {
+  background: #bae0ff;
+}
+
+/*Delete*/
+button[data-testid="test-todo-delete-button"] {
+  background: #ffecec;
+  color: #ff4d4f;
+}
+button[data-testid="test-todo-delete-button"]:hover {
+  background: #ffc1c1;
+}
+
+/*Focus (Accessibility)*/
+button:focus, input:focus {
+  outline: 2px solid #1677ff;
+  border-radius: 2px;
+}
+
+
+/*collapsible*/
+.collapsed {
+  max-height: 40px;
+  overflow: hidden;
+}
+
+/*Edit form*/
+.hidden {
+  display: none;
+}
+
+/* Form container */
+#edit-form {
+  max-width: 500px;
+  margin: 1rem auto;
+  padding: 1.25rem;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+
+
+/* Inputs, textarea, select */
+#edit-form input,
+#edit-form textarea,
+#edit-form select {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.9rem;
+  padding: 0.6rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #9ca3af;
+  font-size: 0.95rem;
+  background-color: #fff;
+  color: #111;
+}
+
+/* Textarea resize */
+#edit-form textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+/* Placeholder styling (subtle but readable) */
+#edit-form ::placeholder {
+  color: #6b7280;
+}
+
+/* Focus states (VERY important for accessibility) */
+#edit-form input:focus,
+#edit-form textarea:focus,
+#edit-form select:focus {
+  outline: 3px solid #2563eb; /* high contrast blue */
+  outline-offset: 2px;
+  border-color: #2563eb;
+}
+
+/* Button container layout */
+#edit-form button {
+  padding: 0.55rem 1rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  transition: background-color 0.2s ease, transform 0.05s ease;
+}
+
+/* Save button (primary action) */
+#edit-form button[data-testid="test-todo-save-button"] {
+  background-color: #2563eb;
+  color: #fff;
+}
+
+/* Cancel button (secondary action) */
+#edit-form button[data-testid="test-todo-cancel-button"] {
+  background-color: #e5e7eb;
+  color: #111;
+}
+
+/* Hover states */
+#edit-form button:hover {
+  filter: brightness(0.95);
+}
+
+/* Active (click) feedback */
+#edit-form button:active {
+  transform: scale(0.97);
+}
+
+/* Focus styles for buttons (keyboard users) */
+#edit-form button:focus-visible {
+  outline: 3px solid #f59e0b;
+  outline-offset: 2px;
+}
+
+/*responsive*/
+/*mobile*/
+@media (max-width: 480px) {
+  .todo-card {
+    padding: 12px;
+  }
+
+  button {
+    padding: 6px;
+  }
+
+   #edit-form {
+    padding: 1rem;
+  }
+
+  #edit-form button {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/*Tablet*/
+@media (min-width: 768px) {
+  .todo-card {
+    max-width: 500px;
+  }
+}
+
+/*Desktop*/
+@media (min-width: 1024px) {
+  .todo-card {
+    max-width: 600px;
+  }
+}
