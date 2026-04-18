@@ -1,4 +1,4 @@
-// ---------------- STATE ----------------
+// ---------------- STATE  entire apps state, all the UI changes comes from here----------------
 let task = {
   title: "Build UI Card",
   desc: "Create a clean and testable todo card component.",
@@ -7,7 +7,7 @@ let task = {
   dueDate: new Date(Date.now() + 5 * 60 * 1000)
 };
 
-// ---------------- ELEMENTS ----------------
+// ---------------- ELEMENTS grabs the ui elements so it be contrl by js----------------
 const titleEl = document.getElementById("todo-title");
 const descEl = document.getElementById("desc-container");
 const timeEl = document.getElementById("time-remaining");
@@ -16,17 +16,19 @@ const checkbox = document.getElementById("checkbox");
 const priorityEl = document.querySelector("[data-testid='test-todo-priority']");
 const priorityControl = document.getElementById("priority-control"); 
 const dueDateEl = document.getElementById("due-date");
-const cardEl = document.getElementById("todo-card");
+const cardEl = document.querySelector(".todo-card");
 
-// ---------------- DERIVED STATE ----------------
+// ---------------- DERIVED STATE converts raw data to meaningful ui states----------------
 function getTimeState() {
   const now = new Date();
 
   if (task.status === "done") return "done";
+  if (now >= task.dueDate) return "overdue";
 
-  return now >= task.dueDate ? "overdue" : "active";
+  return "active";
 }
 
+//-----------format due dates nicely for display-------------------
 function formatDate(date) {
   return date.toLocaleString(undefined, {
     weekday: "short",
@@ -36,20 +38,27 @@ function formatDate(date) {
     minute: "2-digit"
   });
 }
-// ---------------- RENDER ----------------
+// ---------------- RENDER engine of app----------------
 function render() {
- //edit
+  const state = getTimeState();
+
+  // enforce state consistency
+  if (state === "overdue" && task.status !== "done") {
+    task.status = "overdue";
+  }
+
+  // TEXT
   titleEl.innerText = task.title;
   descEl.innerText = task.desc;
 
-    const state = getTimeState();
-  // show actual due date
+  // DATE
   dueDateEl.dateTime = task.dueDate.toISOString();
   dueDateEl.textContent = `Due: ${formatDate(task.dueDate)}`;
 
-  // sync priority
+  // PRIORITY
   changePriority(task.priority);
 
+  // DONE
   if (state === "done") {
     checkbox.checked = true;
     statusControl.value = "done";
@@ -61,9 +70,10 @@ function render() {
     return;
   }
 
+  // OVERDUE
   if (state === "overdue") {
     checkbox.checked = false;
-    statusControl.value = "in progress";
+    statusControl.value = "overdue";
 
     timeEl.textContent = "Overdue";
     timeEl.style.color = "red";
@@ -72,8 +82,9 @@ function render() {
     return;
   }
 
-  checkbox.checked = false;
-  statusControl.value = "in progress";
+  // ACTIVE
+  checkbox.checked = task.status === "in progress";
+  statusControl.value = task.status;
 
   const diff = task.dueDate - new Date();
   const mins = Math.floor(diff / 60000);
@@ -85,15 +96,9 @@ function render() {
 }
 // ---------------- USER ACTIONS ----------------
 function changeStatus(value) {
-  if (value === "done") {
-    task.status = "done";
-  } else {
-    task.status = "in progress";
-  }
-
+  task.status = value;
   render();
 }
-
 checkbox.addEventListener("change", () => {
   task.status = checkbox.checked ? "done" : "in progress";
   render();
@@ -197,4 +202,4 @@ function deleteTask() {
     cardEl.remove();
   }
 }
-renderTask();
+render();
