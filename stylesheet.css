@@ -309,3 +309,219 @@ button:focus, input:focus {
     max-width: 600px;
   }
 }
+body {
+  font-family: Arial,  sans-serif;
+  background: #f4f6f8;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.todo-card {
+   width: 100%;
+  max-width: 450px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+article:hover {
+  transform: translateY(-4px);
+}
+ 
+.done {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #222;
+}
+
+h3.done {
+  text-decoration: line-through;
+  color: #222;
+}
+
+
+/*Priority*/
+[data-testid="test-todo-priority"] {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  background: #ffeaea;
+  color: #ff4d4f;
+  font-weight: 600;
+}
+
+/*Description*/
+#desc-container {
+  color: #666;
+  font-size: 14px;
+  margin: 8px 0 12px;
+}
+
+/*Time*/
+#due-date {
+  font-size: 13px;
+  color: #888;
+}
+#time-remaining {
+  font-size: 13px;
+  color: #1677ff;
+  margin-top: 5px;
+}
+
+/*Status*/
+#status-control {
+  font-weight: bold;
+  color: #faad14;
+}
+
+/*Tags*/
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0;
+  list-style: none;
+}
+
+.urgent {
+ background: #eef6ff;
+  color: #16ff7f;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-right: 5px;
+  font-size: 12px; 
+}
+
+.tag {
+  background: #eef6ff;
+  color: #1677ff;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-right: 5px;
+  font-size: 12px;
+}
+
+/*checkbox*/
+label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+input[type="checked"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 2px solid #ccc;
+  transform: scale(1.2);
+  cursor: pointer;
+  accent-color: #1677ff;
+  position: relative;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #1677ff;
+  border-color: #1677ff;
+}
+
+input[type="checkbox"]:checked::after {
+content: "";
+color: white;
+font-size: 12px;
+position: absolute;
+top: -2px;
+left: 3px;
+}
+
+button {
+  margin-top: 10px;
+  border: none;
+  padding: 8px 12px;
+  margin-right: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.2s;
+}
+
+/*Edit*/
+button[data-testid="test-todo-edit-button"] {
+  background: #e6f4ff;
+  color: #1677ff;
+}
+
+button[data-testid="test-todo-edit-button"]:hover {
+  background: #bae0ff;
+}
+
+/*Delete*/
+button[data-testid="test-todo-delete-button"] {
+  background: #ffecec;
+  color: #ff4d4f;
+}
+button[data-testid="test-todo-delete-button"]:hover {
+  background: #ffc1c1;
+}
+
+/*Focus (Accessibility)*/
+button:focus, input:focus {
+  outline: 2px solid #1677ff;
+  border-radius: 2px;
+}
+
+
+/*collapsible*/
+.collapsed {
+  max-height: 40px;
+  overflow: hidden;
+}
+
+/*Edit form*/
+.hidden {
+  display: none;
+}
+
+#edit-form input, #edit-form textarea,
+#edit-form select {
+  display: block;
+  width: 100%;
+  margin: 6px 0;
+  padding: 8px;
+}
+
+/*responsive*/
+/*mobile*/
+@media (max-width: 480px) {
+  .todo-card {
+    padding: 12px;
+  }
+
+  button {
+    padding: 6px;
+  }
+}
+
+/*Tablet*/
+@media (min-width: 768px) {
+  .todo-card {
+    max-width: 500px;
+  }
+}
+
+/*Desktop*/
+@media (min-width: 1024px) {
+  .todo-card {
+    max-width: 600px;
+  }
+}
