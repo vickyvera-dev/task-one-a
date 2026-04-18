@@ -16,6 +16,7 @@ const checkbox = document.getElementById("checkbox");
 const priorityEl = document.querySelector("[data-testid='test-todo-priority']");
 const priorityControl = document.getElementById("priority-control"); 
 const dueDateEl = document.getElementById("due-date");
+const cardEl = document.getElementById("todo-card");
 
 // ---------------- DERIVED STATE ----------------
 function getTimeState() {
@@ -37,11 +38,11 @@ function formatDate(date) {
 }
 // ---------------- RENDER ----------------
 function render() {
-
+ //edit
   titleEl.innerText = task.title;
   descEl.innerText = task.desc;
-    const state = getTimeState();
 
+    const state = getTimeState();
   // show actual due date
   dueDateEl.dateTime = task.dueDate.toISOString();
   dueDateEl.textContent = `Due: ${formatDate(task.dueDate)}`;
@@ -191,6 +192,9 @@ function cancelEdit() {
 }
 // ---------------- DELETE ----------------
 function deleteTask() {
-  alert("Task deleted (UI only)");
+  const confirmDelete = confirm("Are you sure you want to delete this task?");
+  if (confirmDelete) {
+    cardEl.remove();
+  }
 }
 renderTask();
